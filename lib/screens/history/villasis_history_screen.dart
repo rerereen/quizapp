@@ -1,9 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../models/history_quiz_models.dart';
+import '../../services/history_progress_service.dart';
 import '../../services/history_quiz_data_service.dart';
+import '../../services/sound_service.dart';
+import '../../services/stats_service.dart';
 
 class VillasisHistoryScreen extends StatefulWidget {
   const VillasisHistoryScreen({
@@ -26,6 +30,8 @@ class _VillasisHistoryScreenState extends State<VillasisHistoryScreen> {
   int _chapterIndex = 0;
   int _questionIndex = 0;
   int _narrationIndex = 0;
+  int _introIndex = 0;
+  bool _isIntroStage = false;
   bool _isNarrationStage = true;
   bool _showChoices = false;
   bool _isLoading = true;
@@ -50,10 +56,70 @@ class _VillasisHistoryScreenState extends State<VillasisHistoryScreen> {
           data.chapters.any((HistoryChapter chapter) => chapter.questions.isEmpty)) {
         return;
       }
-      await _playChapter();
+      final HistoryProgress? saved = await HistoryProgress.load(data.id);
+      if (saved != null && saved.chapterIndex < data.chapters.length) {
+        await _resumeFromProgress(saved);
+        return;
+      }
+      if (data.introduction.isNotEmpty) {
+        await _playIntroduction();
+      } else {
+        await _playChapter();
+      }
     } catch (_) {
       if (mounted) setState(() => _isLoading = false);
     }
+  }
+
+  Future<void> _resumeFromProgress(HistoryProgress saved) async {
+    final HistoryChapter chapter = _data!.chapters[saved.chapterIndex];
+    final bool hasNarration = saved.isNarrationStage && chapter.narration.isNotEmpty;
+    setState(() {
+      _chapterIndex = saved.chapterIndex;
+      _questionIndex = chapter.questions.isEmpty
+          ? 0
+          : saved.questionIndex.clamp(0, chapter.questions.length - 1);
+      _narrationIndex = hasNarration
+          ? saved.narrationIndex.clamp(0, chapter.narration.length - 1)
+          : 0;
+      _isNarrationStage = hasNarration;
+      for (int i = 0; i < saved.scores.length && i < _chapterScores.length; i++) {
+        _chapterScores[i] = saved.scores[i];
+      }
+    });
+    await _addGuideMessage(
+      'Welcome back! Continuing Chapter ${_chapterIndex + 1}: ${chapter.title}',
+      isLabel: true,
+    );
+    if (_isNarrationStage) {
+      await _addGuideMessage(chapter.narration[_narrationIndex]);
+    } else {
+      await _askCurrentQuestion();
+    }
+  }
+
+  Future<void> _playIntroduction() async {
+    setState(() {
+      _isIntroStage = true;
+      _introIndex = 0;
+    });
+    await _addGuideMessage(_data!.introduction.first);
+  }
+
+  Future<void> _showNextIntro() async {
+    if (!_isIntroStage) return;
+    HapticFeedback.selectionClick();
+    final List<String> introduction = _data!.introduction;
+    if (_introIndex + 1 < introduction.length) {
+      setState(() => _introIndex++);
+      await _addGuideMessage(introduction[_introIndex]);
+      return;
+    }
+    setState(() {
+      _isIntroStage = false;
+      _messages.clear();
+    });
+    await _playChapter();
   }
 
   Future<void> _playChapter() async {
@@ -63,6 +129,7 @@ class _VillasisHistoryScreenState extends State<VillasisHistoryScreen> {
       _isNarrationStage = true;
       _narrationIndex = 0;
     });
+    await _saveProgress();
     await _addGuideMessage(
       'Chapter ${_chapterIndex + 1}: ${chapter.title}',
       isLabel: true,
@@ -79,9 +146,11 @@ class _VillasisHistoryScreenState extends State<VillasisHistoryScreen> {
     if (!_isNarrationStage) {
       return;
     }
+    HapticFeedback.selectionClick();
     final HistoryChapter chapter = _data!.chapters[_chapterIndex];
     if (_narrationIndex + 1 < chapter.narration.length) {
       setState(() => _narrationIndex++);
+      await _saveProgress();
       await _addGuideMessage(chapter.narration[_narrationIndex]);
       return;
     }
@@ -90,6 +159,7 @@ class _VillasisHistoryScreenState extends State<VillasisHistoryScreen> {
       _isNarrationStage = false;
       _messages.clear();
     });
+    await _saveProgress();
     await _askCurrentQuestion();
   }
 
@@ -115,11 +185,29 @@ class _VillasisHistoryScreenState extends State<VillasisHistoryScreen> {
     _scrollToLatest();
   }
 
+  Future<void> _saveProgress() async {
+    if (_data == null) return;
+    await HistoryProgress.save(
+      _data!.id,
+      HistoryProgress(
+        chapterIndex: _chapterIndex,
+        questionIndex: _questionIndex,
+        narrationIndex: _narrationIndex,
+        isNarrationStage: _isNarrationStage,
+        scores: _chapterScores,
+      ),
+    );
+  }
+
   Future<void> _answer(QuestionChoice choice) async {
     if (!_showChoices) return;
     final HistoryQuestion question = _data!.chapters[_chapterIndex]
         .questions[_questionIndex];
     final bool isCorrect = choice.id == question.correctChoiceId;
+    isCorrect ? HapticFeedback.mediumImpact() : HapticFeedback.heavyImpact();
+    unawaited(SoundService.instance.play(
+      isCorrect ? SoundEffect.correctAnswer : SoundEffect.incorrectAnswer,
+    ));
     setState(() {
       _showChoices = false;
       _messages.add(_ChatMessage(text: choice.text, isPlayer: true));
@@ -132,8 +220,13 @@ class _VillasisHistoryScreenState extends State<VillasisHistoryScreen> {
     if (!mounted) return;
     if (_questionIndex + 1 < _data!.chapters[_chapterIndex].questions.length) {
       setState(() => _questionIndex++);
+      await _saveProgress();
       await _askCurrentQuestion();
-    } else if (_chapterIndex + 1 < _data!.chapters.length) {
+      return;
+    }
+    await _celebrateChapterComplete();
+    if (!mounted) return;
+    if (_chapterIndex + 1 < _data!.chapters.length) {
       setState(() {
         _chapterIndex++;
         _questionIndex = 0;
@@ -141,8 +234,27 @@ class _VillasisHistoryScreenState extends State<VillasisHistoryScreen> {
       });
       await _playChapter();
     } else {
+      await HistoryProgress.clear(_data!.id);
+      await StatsService.instance.recordHistoryQuizComplete();
       _showSummary();
     }
+  }
+
+  Future<void> _celebrateChapterComplete() async {
+    if (!mounted) return;
+    final HistoryChapter chapter = _data!.chapters[_chapterIndex];
+    HapticFeedback.mediumImpact();
+    unawaited(SoundService.instance.play(SoundEffect.chapterComplete));
+    unawaited(StatsService.instance.recordHistoryChapterComplete());
+    await showDialog<void>(
+      context: context,
+      barrierDismissible: false,
+      builder: (BuildContext context) => _ChapterCompleteDialog(
+        chapterTitle: chapter.title,
+        score: _chapterScores[_chapterIndex],
+        total: chapter.questions.length,
+      ),
+    );
   }
 
   void _showSummary() {
@@ -188,6 +300,7 @@ class _VillasisHistoryScreenState extends State<VillasisHistoryScreen> {
     final HistoryQuestion? question = _showChoices
         ? _data!.chapters[_chapterIndex].questions[_questionIndex]
         : null;
+    final bool showAdvanceButton = _isIntroStage || _isNarrationStage;
     return Scaffold(
       appBar: AppBar(title: Text(_data!.title)),
       body: SafeArea(
@@ -217,21 +330,16 @@ class _VillasisHistoryScreenState extends State<VillasisHistoryScreen> {
                       .toList(growable: false),
                 ),
               ),
-            if (_isNarrationStage)
+            if (showAdvanceButton)
               SafeArea(
                 top: false,
                 minimum: const EdgeInsets.fromLTRB(16, 8, 16, 16),
                 child: SizedBox(
                   width: double.infinity,
                   child: ElevatedButton.icon(
-                    onPressed: _showNextNarration,
+                    onPressed: _isIntroStage ? _showNextIntro : _showNextNarration,
                     icon: const Icon(Icons.arrow_forward_rounded),
-                    label: Text(
-                      _narrationIndex + 1 <
-                              _data!.chapters[_chapterIndex].narration.length
-                          ? 'NEXT'
-                          : 'START CHAPTER QUIZ',
-                    ),
+                    label: Text(_advanceButtonLabel()),
                   ),
                 ),
               ),
@@ -240,7 +348,94 @@ class _VillasisHistoryScreenState extends State<VillasisHistoryScreen> {
       ),
     );
   }
+
+  String _advanceButtonLabel() {
+    if (_isIntroStage) {
+      final bool isLast = _introIndex + 1 >= _data!.introduction.length;
+      return isLast ? 'START CHAPTER 1' : 'NEXT';
+    }
+    final bool isLastNarration =
+        _narrationIndex + 1 >= _data!.chapters[_chapterIndex].narration.length;
+    return isLastNarration ? 'START CHAPTER QUIZ' : 'NEXT';
+  }
 }
+
+class _ChapterCompleteDialog extends StatelessWidget {
+  const _ChapterCompleteDialog({
+    required this.chapterTitle,
+    required this.score,
+    required this.total,
+  });
+
+  final String chapterTitle;
+  final int score;
+  final int total;
+
+  int get _stars {
+    if (total == 0) return 0;
+    final double ratio = score / total;
+    if (ratio >= 0.99) return 3;
+    if (ratio >= 0.6) return 2;
+    return 1;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final ColorScheme scheme = Theme.of(context).colorScheme;
+    return Dialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(24, 28, 24, 20),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: <Widget>[
+            TweenAnimationBuilder<double>(
+              tween: Tween<double>(begin: 0, end: 1),
+              duration: const Duration(milliseconds: 500),
+              curve: Curves.elasticOut,
+              builder: (BuildContext context, double value, Widget? child) =>
+                  Transform.scale(scale: value, child: child),
+              child: Icon(Icons.emoji_events_rounded, size: 56, color: scheme.primary),
+            ),
+            const SizedBox(height: 12),
+            Text(
+              'Chapter Complete!',
+              style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w800),
+            ),
+            const SizedBox(height: 4),
+            Text(chapterTitle, textAlign: TextAlign.center),
+            const SizedBox(height: 14),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List<Widget>.generate(
+                3,
+                (int index) => Icon(
+                  Icons.star_rounded,
+                  size: 32,
+                  color: index < _stars ? Colors.amber : scheme.outlineVariant,
+                ),
+              ),
+            ),
+            const SizedBox(height: 8),
+            Text('$score / $total correct', style: Theme.of(context).textTheme.bodyMedium),
+            const SizedBox(height: 20),
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () {
+                  HapticFeedback.selectionClick();
+                  Navigator.of(context).pop();
+                },
+                child: const Text('CONTINUE'),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 
 class HistorySummaryScreen extends StatelessWidget {
   const HistorySummaryScreen({super.key, required this.data, required this.chapterScores});
@@ -326,7 +521,7 @@ class _MessageBubble extends StatelessWidget {
         margin: const EdgeInsets.only(bottom: 10),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
         decoration: BoxDecoration(
-          color: message.isPlayer ? scheme.primary : Colors.white,
+          color: message.isPlayer ? scheme.primary : scheme.surface,
           borderRadius: BorderRadius.circular(12),
           border: message.isPlayer ? null : Border.all(color: scheme.outlineVariant),
         ),
@@ -346,7 +541,7 @@ class _MessageBubble extends StatelessWidget {
               text: message.text,
               enabled: !message.isPlayer,
               style: TextStyle(
-                color: message.isPlayer ? Colors.white : scheme.onSurface,
+                color: message.isPlayer ? scheme.onPrimary : scheme.onSurface,
               ),
             ),
           ],

@@ -71,12 +71,14 @@ class VillasisHistoryData {
     required this.id,
     required this.title,
     required this.guideName,
+    required this.introduction,
     required this.chapters,
   });
 
   final String id;
   final String title;
   final String guideName;
+  final List<String> introduction;
   final List<HistoryChapter> chapters;
 
   factory VillasisHistoryData.fromJson(Map<String, dynamic> json) =>
@@ -84,6 +86,9 @@ class VillasisHistoryData {
         id: (json['id'] ?? '').toString(),
         title: (json['title'] ?? '').toString(),
         guideName: (json['guideName'] ?? '').toString(),
+        introduction: (json['introduction'] as List<dynamic>? ?? <dynamic>[])
+            .map((dynamic item) => item.toString())
+            .toList(growable: false),
         chapters: (json['chapters'] as List<dynamic>? ?? <dynamic>[])
             .whereType<Map<String, dynamic>>()
             .map(HistoryChapter.fromJson)

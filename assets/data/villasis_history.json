@@ -1,43 +1,365 @@
 {
   "id": "villasis_history",
   "title": "History of Villasis, Pangasinan",
-  "guideName": "FILLER: Guide name",
+  "guideName": "Juan dela Cruz",
+  "introduction": [
+    "Maayo! I'm Juan dela Cruz, your guide. We'll travel back in time, from a forest called Pandoyocan to the town you know today.",
+    "Each chapter has a short story, then a few quick questions — answer well to earn stars! Ready to begin?"
+  ],
   "chapters": [
     {
       "id": "chapter_1",
-      "title": "FILLER: Chapter 1 title",
-      "narration": ["FILLER: chapter 1 history chunk 1", "FILLER: chapter 1 history chunk 2"],
+      "title": "Etymology of Pandoyocan",
+      "narration": [
+        "The present Municipality of Villasis was a barrio of Malasiqui in the early 17th century, known then as Pandoyocan — a frontier settlement deep in the forests of southeastern Pangasinan, its jurisdiction reaching Asingan, Sta. Maria, Urdaneta, Sto. Tomas and Alcala.",
+        "Few people lived there since farmland was scarce, but its forest held a nesting ground of bees called oyocan. The abundance of honey drew Spaniards and neighbors to settle, so the place became known as Pandoyocan, colony of bees.",
+        "Its bees produced honey called allid and bee wax used for cloth weaving. The forest also supplied timber — even for a Spanish navy vessel built at Lingayen — while the Agno River yielded gold dust called mocmoc."
+      ],
       "questions": [
-        {"id":"c1_q1","prompt":"FILLER: question 1 for chapter 1","choices":[{"id":"a","text":"FILLER: choice A"},{"id":"b","text":"FILLER: choice B"},{"id":"c","text":"FILLER: choice C"}],"correctChoiceId":"a","feedbackCorrect":"FILLER: correct feedback message","feedbackIncorrect":"FILLER: incorrect feedback message, with correct answer restated"},
-        {"id":"c1_q2","prompt":"FILLER: question 2 for chapter 1","choices":[{"id":"a","text":"FILLER: choice A"},{"id":"b","text":"FILLER: choice B"},{"id":"c","text":"FILLER: choice C"}],"correctChoiceId":"b","feedbackCorrect":"FILLER: correct feedback message","feedbackIncorrect":"FILLER: incorrect feedback message, with correct answer restated"}
+        {
+          "id": "c1_q1",
+          "prompt": "What was the former name of the present Municipality of Villasis?",
+          "choices": [
+            { "id": "a", "text": "Malasiqui" },
+            { "id": "b", "text": "Pandoyocan" },
+            { "id": "c", "text": "Asingan" }
+          ],
+          "correctChoiceId": "b",
+          "feedbackCorrect": "Correct! The present Municipality of Villasis was formerly known as Pandoyocan.",
+          "feedbackIncorrect": "Incorrect. The correct answer is Pandoyocan. Villasis was formerly known as Pandoyocan before it was renamed."
+        },
+        {
+          "id": "c1_q2",
+          "prompt": "What does the name 'Pandoyocan' mean?",
+          "choices": [
+            { "id": "a", "text": "Colony of ants" },
+            { "id": "b", "text": "Colony of bees" },
+            { "id": "c", "text": "Forest of gold" }
+          ],
+          "correctChoiceId": "b",
+          "feedbackCorrect": "Correct! Pandoyocan means 'colony of bees' due to the abundance of bees in the area.",
+          "feedbackIncorrect": "Incorrect. The correct answer is Colony of bees. The place was called Pandoyocan because it was a nesting ground of bees."
+        },
+        {
+          "id": "c1_q3",
+          "prompt": "What is the honey produced in Pandoyocan called?",
+          "choices": [
+            { "id": "a", "text": "Mocmoc" },
+            { "id": "b", "text": "Oyocan" },
+            { "id": "c", "text": "Allid" }
+          ],
+          "correctChoiceId": "c",
+          "feedbackCorrect": "Correct! The honey produced in Pandoyocan is called allid.",
+          "feedbackIncorrect": "Incorrect. The correct answer is Allid. The bees produced honey called allid, which provided good income for the residents."
+        },
+        {
+          "id": "c1_q4",
+          "prompt": "What was the gold dust found along the banks of the Agno River called?",
+          "choices": [
+            { "id": "a", "text": "Mocmoc" },
+            { "id": "b", "text": "Allid" },
+            { "id": "c", "text": "Oyocan" }
+          ],
+          "correctChoiceId": "a",
+          "feedbackCorrect": "Correct! The gold dust found along the Agno River was called mocmoc.",
+          "feedbackIncorrect": "Incorrect. The correct answer is Mocmoc. The banks of the Agno River were a source of livelihood due to the abundance of gold dust called mocmoc."
+        },
+        {
+          "id": "c1_q5",
+          "prompt": "Which of the following towns was NOT part of the village's jurisdiction?",
+          "choices": [
+            { "id": "a", "text": "Asingan" },
+            { "id": "b", "text": "Malasiqui" },
+            { "id": "c", "text": "Alcala" }
+          ],
+          "correctChoiceId": "b",
+          "feedbackCorrect": "Correct! Malasiqui was NOT part of the village's jurisdiction. Villasis was a barrio of Malasiqui.",
+          "feedbackIncorrect": "Incorrect. The correct answer is Malasiqui. The village's jurisdiction embraced Asingan, Sta. Maria, Urdaneta, Sto. Tomas and Alcala, but not Malasiqui."
+        }
       ]
     },
     {
-      "id":"chapter_2", "title":"FILLER: Chapter 2 title", "narration":["FILLER: chapter 2 history chunk 1", "FILLER: chapter 2 history chunk 2"],
-      "questions":[
-        {"id":"c2_q1","prompt":"FILLER: question 1 for chapter 2","choices":[{"id":"a","text":"FILLER: choice A"},{"id":"b","text":"FILLER: choice B"},{"id":"c","text":"FILLER: choice C"}],"correctChoiceId":"c","feedbackCorrect":"FILLER: correct feedback message","feedbackIncorrect":"FILLER: incorrect feedback message, with correct answer restated"},
-        {"id":"c2_q2","prompt":"FILLER: question 2 for chapter 2","choices":[{"id":"a","text":"FILLER: choice A"},{"id":"b","text":"FILLER: choice B"},{"id":"c","text":"FILLER: choice C"}],"correctChoiceId":"a","feedbackCorrect":"FILLER: correct feedback message","feedbackIncorrect":"FILLER: incorrect feedback message, with correct answer restated"}
+      "id": "chapter_2",
+      "title": "Historical Development and Establishment as a Pueblo",
+      "narration": [
+        "Villasis was founded in the first decade of the 19th century, rebuilt from the remnants of ancient Pandoyocan after friars in Malasiqui and Fr. Fernando Sta. Maria petitioned to elevate it into a pueblo.",
+        "On October 18, 1759, Bishop Miguel Espelita — the first Filipino Archbishop and Governor General — granted authority to establish the town. Its first officials were elected on May 13, 1760.",
+        "A Dominican priest became curate, though the convent wasn't accepted until 1763. The Palaris Revolt (1762-1764) reduced it to 150 tributes, but it endured — placed under the vicar of Sinapog, now Asingan, in 1769, with no further record after 1773."
+      ],
+      "questions": [
+        {
+          "id": "c2_q1",
+          "prompt": "Who granted the authority to establish the town of Pandoyocan on October 18, 1759?",
+          "choices": [
+            { "id": "a", "text": "Fr. Fernando Sta. Maria" },
+            { "id": "b", "text": "Bishop Miguel Espelita" },
+            { "id": "c", "text": "Governor Felgueras" }
+          ],
+          "correctChoiceId": "b",
+          "feedbackCorrect": "Correct! Bishop Miguel Espelita granted the authority to establish the town of Pandoyocan on October 18, 1759.",
+          "feedbackIncorrect": "Incorrect. The correct answer is Bishop Miguel Espelita. He was the interim Governor General and first Filipino Archbishop and Governor General."
+        },
+        {
+          "id": "c2_q2",
+          "prompt": "In what year was the first election of town officials held in Pandoyocan?",
+          "choices": [
+            { "id": "a", "text": "1760" },
+            { "id": "b", "text": "1759" },
+            { "id": "c", "text": "1763" }
+          ],
+          "correctChoiceId": "a",
+          "feedbackCorrect": "Correct! The first election of town officials was held in 1760.",
+          "feedbackIncorrect": "Incorrect. The correct answer is 1760. The election of Gobernadorcillo and other municipal officials was conducted on May 13, 1760."
+        },
+        {
+          "id": "c2_q3",
+          "prompt": "When was the convent at Pandoyocan accepted by the religious order?",
+          "choices": [
+            { "id": "a", "text": "1760" },
+            { "id": "b", "text": "1763" },
+            { "id": "c", "text": "1769" }
+          ],
+          "correctChoiceId": "b",
+          "feedbackCorrect": "Correct! The convent at Pandoyocan was accepted by the religious order in 1763.",
+          "feedbackIncorrect": "Incorrect. The correct answer is 1763. The convent is now the Roman Catholic Church/Rectory of Villasis."
+        },
+        {
+          "id": "c2_q4",
+          "prompt": "During the Palaris Revolt of 1762-1764, the inhabitants of Pandoyocan dwindled to how many tributes?",
+          "choices": [
+            { "id": "a", "text": "92" },
+            { "id": "b", "text": "150" },
+            { "id": "c", "text": "300" }
+          ],
+          "correctChoiceId": "b",
+          "feedbackCorrect": "Correct! The inhabitants dwindled to 150 tributes during the Palaris Revolt.",
+          "feedbackIncorrect": "Incorrect. The correct answer is 150. The population decreased significantly during the revolt and its administration was ordered abolished."
+        },
+        {
+          "id": "c2_q5",
+          "prompt": "In 1769, Pandoyocan was placed under the care of the vicar of Sinapog, which is known today as what town?",
+          "choices": [
+            { "id": "a", "text": "Villasis" },
+            { "id": "b", "text": "Asingan" },
+            { "id": "c", "text": "Rosales" }
+          ],
+          "correctChoiceId": "b",
+          "feedbackCorrect": "Correct! Sinapog is known today as the town of Asingan.",
+          "feedbackIncorrect": "Incorrect. The correct answer is Asingan. In 1769, Pandoyocan was placed under the vicar of Sinapog, now known as Asingan."
+        }
       ]
     },
     {
-      "id":"chapter_3", "title":"FILLER: Chapter 3 title", "narration":["FILLER: chapter 3 history chunk 1", "FILLER: chapter 3 history chunk 2"],
-      "questions":[
-        {"id":"c3_q1","prompt":"FILLER: question 1 for chapter 3","choices":[{"id":"a","text":"FILLER: choice A"},{"id":"b","text":"FILLER: choice B"},{"id":"c","text":"FILLER: choice C"}],"correctChoiceId":"b","feedbackCorrect":"FILLER: correct feedback message","feedbackIncorrect":"FILLER: incorrect feedback message, with correct answer restated"},
-        {"id":"c3_q2","prompt":"FILLER: question 2 for chapter 3","choices":[{"id":"a","text":"FILLER: choice A"},{"id":"b","text":"FILLER: choice B"},{"id":"c","text":"FILLER: choice C"}],"correctChoiceId":"c","feedbackCorrect":"FILLER: correct feedback message","feedbackIncorrect":"FILLER: incorrect feedback message, with correct answer restated"}
+      "id": "chapter_3",
+      "title": "The Palaris Revolt and Restoration Attempts",
+      "narration": [
+        "Ilocano migrants settled in Villasis through the 18th and 19th centuries. In 1782, Pantaleon Perez — known as Juan de la Cruz Palaris — led an uprising against forced labor without pay.",
+        "Many fled, leaving the place almost deserted, and it was again turned into a barrio under Malasiqui. It was one of Pandoyocan's darkest periods.",
+        "Leaders like Don Remegio Macaraeg, Don Aurelio Figueroa and Don Gabriel de la Cruz spent years trying to restore it — and after much hardship, it finally became a separate municipality again."
+      ],
+      "questions": [
+        {
+          "id": "c3_q1",
+          "prompt": "Who led the uprising against the Spaniards in 1782?",
+          "choices": [
+            { "id": "a", "text": "Don Remegio Macaraeg" },
+            { "id": "b", "text": "Pantaleon Perez" },
+            { "id": "c", "text": "Don Gabriel de la Cruz" }
+          ],
+          "correctChoiceId": "b",
+          "feedbackCorrect": "Correct! Pantaleon Perez led the uprising against the Spaniards in 1782.",
+          "feedbackIncorrect": "Incorrect. The correct answer is Pantaleon Perez. He is known in national history as 'Juan de la Cruz Palaris'."
+        },
+        {
+          "id": "c3_q2",
+          "prompt": "What was the chief cause of the uprising in 1782?",
+          "choices": [
+            { "id": "a", "text": "High taxes" },
+            { "id": "b", "text": "Religious conflict" },
+            { "id": "c", "text": "Forced labor without pay" }
+          ],
+          "correctChoiceId": "c",
+          "feedbackCorrect": "Correct! Forced labor without pay was the chief cause of the uprising.",
+          "feedbackIncorrect": "Incorrect. The correct answer is Forced labor without pay. This caused many people to move to other towns."
+        },
+        {
+          "id": "c3_q3",
+          "prompt": "What was Pantaleon Perez known as in national history?",
+          "choices": [
+            { "id": "a", "text": "Juan de la Cruz" },
+            { "id": "b", "text": "Juan de la Cruz Palaris" },
+            { "id": "c", "text": "Rafael Maria de Aguilar" }
+          ],
+          "correctChoiceId": "b",
+          "feedbackCorrect": "Correct! Pantaleon Perez was known as 'Juan de la Cruz Palaris' in national history.",
+          "feedbackIncorrect": "Incorrect. The correct answer is Juan de la Cruz Palaris. This is the name by which Pantaleon Perez is known in national history."
+        },
+        {
+          "id": "c3_q4",
+          "prompt": "After the uprising, Pandoyocan was again turned into a barrio under what town?",
+          "choices": [
+            { "id": "a", "text": "Asingan" },
+            { "id": "b", "text": "Malasiqui" },
+            { "id": "c", "text": "Villasis" }
+          ],
+          "correctChoiceId": "b",
+          "feedbackCorrect": "Correct! Pandoyocan was again turned into a barrio under Malasiqui.",
+          "feedbackIncorrect": "Incorrect. The correct answer is Malasiqui. After the uprising, the place became almost deserted and was placed under Malasiqui."
+        },
+        {
+          "id": "c3_q5",
+          "prompt": "Which of the following was NOT mentioned as a leader who attempted to restore Pandoyocan into an independent town?",
+          "choices": [
+            { "id": "a", "text": "Don Remegio Macaraeg" },
+            { "id": "b", "text": "Don Antonio Urbiztondo" },
+            { "id": "c", "text": "Don Gabriel de la Cruz" }
+          ],
+          "correctChoiceId": "b",
+          "feedbackCorrect": "Correct! Don Antonio Urbiztondo was NOT mentioned as a leader who attempted to restore Pandoyocan.",
+          "feedbackIncorrect": "Incorrect. The correct answer is Don Antonio Urbiztondo. The leaders mentioned were Don Remegio Macaraeg, Don Aurelio Figueroa, and Don Gabriel de la Cruz."
+        }
       ]
     },
     {
-      "id":"chapter_4", "title":"FILLER: Chapter 4 title", "narration":["FILLER: chapter 4 history chunk 1", "FILLER: chapter 4 history chunk 2"],
-      "questions":[
-        {"id":"c4_q1","prompt":"FILLER: question 1 for chapter 4","choices":[{"id":"a","text":"FILLER: choice A"},{"id":"b","text":"FILLER: choice B"},{"id":"c","text":"FILLER: choice C"}],"correctChoiceId":"a","feedbackCorrect":"FILLER: correct feedback message","feedbackIncorrect":"FILLER: incorrect feedback message, with correct answer restated"},
-        {"id":"c4_q2","prompt":"FILLER: question 2 for chapter 4","choices":[{"id":"a","text":"FILLER: choice A"},{"id":"b","text":"FILLER: choice B"},{"id":"c","text":"FILLER: choice C"}],"correctChoiceId":"b","feedbackCorrect":"FILLER: correct feedback message","feedbackIncorrect":"FILLER: incorrect feedback message, with correct answer restated"}
+      "id": "chapter_4",
+      "title": "The Creation and Founding of the Town of Villasis",
+      "narration": [
+        "More migrants arrived by the turn of the 19th century, and residents petitioned to restore their municipality. On June 22, 1804, a royal decree ordered Pandoyocan's reconstitution.",
+        "After delays, residents petitioned again to re-establish the town and rename it Villasis, honoring Governor Rafael Maria de Aguilar's family name. Governor Felgueras granted it on March 2, 1807.",
+        "Another version credits Spanish colonizer Don Antonio Urbiztondo y Villasis instead — unverified, but the belief traditionally accepted today."
+      ],
+      "questions": [
+        {
+          "id": "c4_q1",
+          "prompt": "When was the royal decree mandating the reconstitution of Pandoyocan published?",
+          "choices": [
+            { "id": "a", "text": "June 22, 1804" },
+            { "id": "b", "text": "March 2, 1807" },
+            { "id": "c", "text": "October 18, 1759" }
+          ],
+          "correctChoiceId": "a",
+          "feedbackCorrect": "Correct! The royal decree mandating the reconstitution of Pandoyocan was published on June 22, 1804.",
+          "feedbackIncorrect": "Incorrect. The correct answer is June 22, 1804. There was some delay in the execution of this decree."
+        },
+        {
+          "id": "c4_q2",
+          "prompt": "Who granted the petition to change the name of the town to Villasis?",
+          "choices": [
+            { "id": "a", "text": "Bishop Miguel Espelita" },
+            { "id": "b", "text": "Governor Felgueras" },
+            { "id": "c", "text": "Governor Rafael Maria de Aguilar" }
+          ],
+          "correctChoiceId": "b",
+          "feedbackCorrect": "Correct! Governor Felgueras granted the petition to change the name to Villasis.",
+          "feedbackIncorrect": "Incorrect. The correct answer is Governor Felgueras. He granted the petition and the decree of 1804 was amended on March 2, 1807."
+        },
+        {
+          "id": "c4_q3",
+          "prompt": "On what date was the decree of 1804 amended to name the town Villasis?",
+          "choices": [
+            { "id": "a", "text": "June 22, 1804" },
+            { "id": "b", "text": "March 2, 1807" },
+            { "id": "c", "text": "May 13, 1760" }
+          ],
+          "correctChoiceId": "b",
+          "feedbackCorrect": "Correct! The decree was amended on March 2, 1807 to name the town Villasis.",
+          "feedbackIncorrect": "Incorrect. The correct answer is March 2, 1807. This is when Governor Felgueras granted the petition to rename the town."
+        },
+        {
+          "id": "c4_q4",
+          "prompt": "According to one version, who was Villasis named after?",
+          "choices": [
+            { "id": "a", "text": "Governor Felgueras" },
+            { "id": "b", "text": "Don Antonio Urbiztondo y Villasis" },
+            { "id": "c", "text": "Bishop Miguel Espelita" }
+          ],
+          "correctChoiceId": "b",
+          "feedbackCorrect": "Correct! According to traditional belief, Villasis was named after Don Antonio Urbiztondo y Villasis.",
+          "feedbackIncorrect": "Incorrect. The correct answer is Don Antonio Urbiztondo y Villasis. This is the traditionally accepted belief, though it cannot be independently verified."
+        },
+        {
+          "id": "c4_q5",
+          "prompt": "According to the other version, the town was named Villasis in honor of former Governor Rafael Maria de Aguilar because of what?",
+          "choices": [
+            { "id": "a", "text": "He was born in Villasis" },
+            { "id": "b", "text": "One of his family names was Villasis" },
+            { "id": "c", "text": "He built the town church" }
+          ],
+          "correctChoiceId": "b",
+          "feedbackCorrect": "Correct! One of Governor Rafael Maria de Aguilar's family names was Villasis.",
+          "feedbackIncorrect": "Incorrect. The correct answer is One of his family names was Villasis. He issued the decree of 1804."
+        }
       ]
     },
     {
-      "id":"chapter_5", "title":"FILLER: Chapter 5 title", "narration":["FILLER: chapter 5 history chunk 1", "FILLER: chapter 5 history chunk 2"],
-      "questions":[
-        {"id":"c5_q1","prompt":"FILLER: question 1 for chapter 5","choices":[{"id":"a","text":"FILLER: choice A"},{"id":"b","text":"FILLER: choice B"},{"id":"c","text":"FILLER: choice C"}],"correctChoiceId":"c","feedbackCorrect":"FILLER: correct feedback message","feedbackIncorrect":"FILLER: incorrect feedback message, with correct answer restated"},
-        {"id":"c5_q2","prompt":"FILLER: question 2 for chapter 5","choices":[{"id":"a","text":"FILLER: choice A"},{"id":"b","text":"FILLER: choice B"},{"id":"c","text":"FILLER: choice C"}],"correctChoiceId":"a","feedbackCorrect":"FILLER: correct feedback message","feedbackIncorrect":"FILLER: incorrect feedback message, with correct answer restated"}
+      "id": "chapter_5",
+      "title": "Villasis Today",
+      "narration": [
+        "Tributes had dwindled to 92 from 300, and the Dominican Father wanted the town center moved to Macayo, where a chapel already stood — so the site moved and Pandoyocan became a mere barrio of Villasis.",
+        "In 1841, Villasis finally became a town-parish, including the visita of Panaglagbang, now Rosales. Today it has the Poblacion and 16 barangays.",
+        "Sitting along the National Highway between Region I, the Cordillera and southern Luzon, Villasis has grown into one of Pangasinan's most progressive towns — flourishing on rice, corn and tobacco, and celebrating an annual fiesta for its patron, Saint Anthony the Abbot."
+      ],
+      "questions": [
+        {
+          "id": "c5_q1",
+          "prompt": "The Dominican Provincial complained that the number of tributes in Pandoyocan had dwindled to how many?",
+          "choices": [
+            { "id": "a", "text": "150" },
+            { "id": "b", "text": "300" },
+            { "id": "c", "text": "92" }
+          ],
+          "correctChoiceId": "c",
+          "feedbackCorrect": "Correct! The number of tributes had dwindled to only 92 from an original 300.",
+          "feedbackIncorrect": "Incorrect. The correct answer is 92. Many who had been registered were not around when the period for the collection of tributes came."
+        },
+        {
+          "id": "c5_q2",
+          "prompt": "Where did the Dominican Father want the town center to be sited?",
+          "choices": [
+            { "id": "a", "text": "Asingan" },
+            { "id": "b", "text": "Macayo" },
+            { "id": "c", "text": "Lingayen" }
+          ],
+          "correctChoiceId": "b",
+          "feedbackCorrect": "Correct! The Dominican Father wanted the town center to be sited in Macayo.",
+          "feedbackIncorrect": "Incorrect. The correct answer is Macayo. A chapel had already been built there."
+        },
+        {
+          "id": "c5_q3",
+          "prompt": "In what year did Villasis finally become a town-parish?",
+          "choices": [
+            { "id": "a", "text": "1841" },
+            { "id": "b", "text": "1804" },
+            { "id": "c", "text": "1807" }
+          ],
+          "correctChoiceId": "a",
+          "feedbackCorrect": "Correct! Villasis finally became a town-parish in 1841.",
+          "feedbackIncorrect": "Incorrect. The correct answer is 1841. It included the visita of Panaglagbang, which is now the town of Rosales."
+        },
+        {
+          "id": "c5_q4",
+          "prompt": "How many barangays does the town of Villasis currently consist of?",
+          "choices": [
+            { "id": "a", "text": "12" },
+            { "id": "b", "text": "16" },
+            { "id": "c", "text": "18" }
+          ],
+          "correctChoiceId": "b",
+          "feedbackCorrect": "Correct! The town now consists of the Poblacion, the urban center, and 16 barangays.",
+          "feedbackIncorrect": "Incorrect. The correct answer is 16. Each barangay has its own history and etymology."
+        },
+        {
+          "id": "c5_q5",
+          "prompt": "Who is the patron saint of Villasis in whose honor an annual fiesta is held?",
+          "choices": [
+            { "id": "a", "text": "Saint Anthony the Abbot" },
+            { "id": "b", "text": "Saint Anthony of Padua" },
+            { "id": "c", "text": "Saint Michael the Archangel" }
+          ],
+          "correctChoiceId": "a",
+          "feedbackCorrect": "Correct! The municipality holds an annual fiesta in honor of Saint Anthony the Abbot.",
+          "feedbackIncorrect": "Incorrect. The correct answer is Saint Anthony the Abbot. He is the patron saint of Villasis."
+        }
       ]
     }
   ]

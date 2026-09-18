@@ -13,7 +13,9 @@ class AppTheme {
       brightness: Brightness.light,
     ).copyWith(
       primary: forestGreen,
+      onPrimary: Colors.white,
       secondary: secondaryGreen,
+      onSecondary: Colors.white,
       onSurface: textPrimary,
       surface: Colors.white,
     );
@@ -59,7 +61,7 @@ class AppTheme {
             }
               return forestGreen;
           }),
-          foregroundColor: const WidgetStatePropertyAll<Color>(Colors.white),
+          foregroundColor: WidgetStatePropertyAll<Color>(colorScheme.onPrimary),
           elevation: const WidgetStatePropertyAll<double>(0),
           shape: const WidgetStatePropertyAll<OutlinedBorder>(
             RoundedRectangleBorder(
@@ -100,10 +102,18 @@ class AppTheme {
   static ThemeData get darkTheme {
     const Color forestGreen = Color(0xFF7CBF62);
     const Color secondaryGreen = Color(0xFF6FAF5D);
+    // forestGreen/secondaryGreen are light tones (for contrast against the dark
+    // background), so text drawn on top of them needs a dark, not white, color.
+    const Color onGreen = Color(0xFF0F2009);
     final ColorScheme colorScheme = ColorScheme.fromSeed(
       seedColor: forestGreen,
       brightness: Brightness.dark,
-    ).copyWith(primary: forestGreen, secondary: secondaryGreen);
+    ).copyWith(
+      primary: forestGreen,
+      onPrimary: onGreen,
+      secondary: secondaryGreen,
+      onSecondary: onGreen,
+    );
 
     return ThemeData(
       useMaterial3: true,
@@ -125,16 +135,16 @@ class AppTheme {
         margin: EdgeInsets.zero,
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
-        style: const ButtonStyle(
-          backgroundColor: WidgetStatePropertyAll<Color>(forestGreen),
-          foregroundColor: WidgetStatePropertyAll<Color>(Colors.white),
-          elevation: WidgetStatePropertyAll<double>(0),
-          shape: WidgetStatePropertyAll<OutlinedBorder>(
+        style: ButtonStyle(
+          backgroundColor: const WidgetStatePropertyAll<Color>(forestGreen),
+          foregroundColor: WidgetStatePropertyAll<Color>(colorScheme.onPrimary),
+          elevation: const WidgetStatePropertyAll<double>(0),
+          shape: const WidgetStatePropertyAll<OutlinedBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.all(Radius.circular(16)),
             ),
           ),
-          padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
+          padding: const WidgetStatePropertyAll<EdgeInsetsGeometry>(
             EdgeInsets.symmetric(horizontal: 20, vertical: 16),
           ),
         ),

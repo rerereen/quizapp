@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../widgets/app_button.dart';
+import '../settings/settings_screen.dart';
+import '../stats/stats_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -15,6 +17,21 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
+              Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
+                  IconButton(
+                    tooltip: 'Stats',
+                    onPressed: () => Navigator.of(context).pushNamed(StatsScreen.routeName),
+                    icon: const Icon(Icons.bar_chart_rounded),
+                  ),
+                  IconButton(
+                    tooltip: 'Settings',
+                    onPressed: () => Navigator.of(context).pushNamed(SettingsScreen.routeName),
+                    icon: const Icon(Icons.settings_rounded),
+                  ),
+                ],
+              ),
               const Spacer(),
               Container(
                 padding: const EdgeInsets.all(24),
@@ -24,9 +41,9 @@ class HomeScreen extends StatelessWidget {
                 ),
                 child: Column(
                   children: <Widget>[
-                    const Icon(
+                    Icon(
                       Icons.bolt_rounded,
-                      color: Colors.white,
+                      color: Theme.of(context).colorScheme.onPrimary,
                       size: 42,
                     ),
                     const SizedBox(height: 8),
@@ -34,14 +51,14 @@ class HomeScreen extends StatelessWidget {
                       'HISTORY OF VILLASIS',
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.displaySmall
-                          ?.copyWith(color: Colors.white),
+                          ?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
                     ),
                     const SizedBox(height: 6),
                     Text(
                       'A chat-guided journey through Villasis, Pangasinan.',
                       textAlign: TextAlign.center,
                       style: Theme.of(context).textTheme.titleMedium
-                          ?.copyWith(color: Colors.white),
+                          ?.copyWith(color: Theme.of(context).colorScheme.onPrimary),
                     ),
                   ],
                 ),
